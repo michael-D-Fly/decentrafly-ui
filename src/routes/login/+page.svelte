@@ -6,7 +6,6 @@
     
     const token_map = uri_to_token_map($page.url.hash);
     token.set(token_map.id_token);
-
     goto("/")
 </script>
 
