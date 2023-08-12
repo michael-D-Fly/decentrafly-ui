@@ -10,7 +10,7 @@
 <nav>
     <a href="/">Home</a>
 	{#if ($user == undefined)}
-		<a href="https://decentraflytestsignin.auth.us-east-1.amazoncognito.com/login?client_id=20ljuqkee1ci7n4b1nuomitf6o&redirect_uri=http%3A%2F%2Flocalhost%3A5173/login&response_type=token">Login</a>
+	    <a href="https://decentraflytestsignin.auth.us-east-1.amazoncognito.com/login?client_id=20ljuqkee1ci7n4b1nuomitf6o&redirect_uri=https%3A%2F%2Fui.decentrafly.org%2Flogin&response_type=token">Login</a>
 	{:else}
 		<a href="/account">Account</a>
 		<a href="#" on:click={() => {token.update((v) => undefined)}}>Logout</a>
