@@ -30,3 +30,7 @@ export async function get_api_devices_sendingfromcallerip(): Promise<object> {
 export async function get_api_devices(): Promise<object> {
     return await decentrafly("/api/devices")
 }
+
+export async function put_api_devices_name_claim(device_name: string): Promise<object> {
+    return await decentrafly(`/api/devices/${device_name}/claim`, {'method': 'PUT'})
+}

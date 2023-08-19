@@ -1,11 +1,9 @@
 <script>
     import { store as user } from '$lib/stores/user';
-
-    user.subscribe(v => console.log(v))
 </script>
 
 <h2>Your account</h2>
-{#if $user }
+{#if $user.login_state == 'logged_in' }
     <p>Email: {$user.user_info.email}</p>
     <p>Name: {$user.user_info.name}</p>
 {:else}
