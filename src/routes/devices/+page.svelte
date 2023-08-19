@@ -1,10 +1,20 @@
 <script>
+    import Claimbutton from './components/claimbutton.svelte';
+
     export let data;
-	//import { get_api_devices_sendingfromcallerip } from "$lib/diplomat/decentrafly";
 
-
+    console.log(data)
 </script>
 
 
 <h2>Devices</h2>
-{data[0].thingName}
+<ul>
+    {#each data.devices as device}
+        <li>
+            <div>{device.name}</div>
+            <div><b>messages</b>: {device.messages_sent}</div>
+            <div><b>nick</b>: {device.user}</div>
+            <div><Claimbutton device_name={device.name} device_owner={device.owner} /></div>
+        </li>
+    {/each}
+</ul>
