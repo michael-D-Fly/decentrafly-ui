@@ -1,12 +1,19 @@
 <script>
     import { page } from '$app/stores';
-    import { goto } from '$app/navigation';
-    import { token } from '$lib/stores/auth';
     import { uri_to_token_map } from '$lib/logic/oidc';
+    import { refresh } from '$lib/controller/auth_controller';
+    import { goto } from '$app/navigation';
+    import { store as user } from '$lib/stores/user';
     
     const token_map = uri_to_token_map($page.url.hash);
-    token.set(token_map.id_token);
-    goto("/")
+
+    refresh(token_map.id_token)
+
+    user.subscribe(user => {
+        if (user.login_state == 'logged_in') {
+            goto('/')
+        }
+    })
 </script>
 
-<p>You should be redirected ...</p>
+<p>We are logging you in, please wait. You should be redirected ...</p>

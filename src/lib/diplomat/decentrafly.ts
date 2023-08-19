@@ -1,13 +1,32 @@
 import { get } from 'svelte/store';
+import { handle_authentication_failure } from '$lib/controller/auth_controller';
 
 
-export async function decentrafly(token: string, uri: string, rqmap: object | undefined = undefined): Promise<object> {
-    let rq = {...rqmap, ...{headers: {"Authorization": "Bearer " + token}}};
+export async function decentrafly(uri: string, rqmap?: RequestInit, headers?: [string, string][]): Promise<object> {
+    let rq = {
+        credentials: 'include',
+        ...rqmap,
+        ...{headers: headers}
+    };
 
     return fetch("https://decentrafly.org" + uri, rq)
-        .then(response => response.json())
+        .then(response => { if (response.status >= 300) {
+            handle_authentication_failure(rq)
+            return undefined
+        } else {
+            return response.json()
+        }})
 }
 
-export async function get_api_user_self(token: string): Promise<object> {
-    return await decentrafly(token, "/api/user/self", {})
+export async function get_api_user_self(token?: string): Promise<object> {
+    let headers = token == undefined ? {} : {"Authorization": `Bearer ${token}`}
+    return await decentrafly("/api/user/self", {}, headers)
+}
+
+export async function get_api_devices_sendingfromcallerip(): Promise<object> {
+    return await decentrafly("/api/devices/sending-from-caller-ip")
+}
+
+export async function get_api_devices(): Promise<object> {
+    return await decentrafly("/api/devices")
 }

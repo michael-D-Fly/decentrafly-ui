@@ -6,9 +6,8 @@
 
 <h2>Your account</h2>
 {#if $user }
-    <p>Email: {$user.email}</p>
-    <p>ID: {$user.user_id}</p>
-    <p>Email verified: {$user.email_verified}</p>
+    <p>Email: {$user.user_info.email}</p>
+    <p>Name: {$user.user_info.name}</p>
 {:else}
     <p>Youre not logged in.</p>
 {/if}

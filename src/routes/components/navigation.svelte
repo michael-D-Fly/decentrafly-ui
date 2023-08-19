@@ -1,6 +1,6 @@
 <script>
-	import { token } from '$lib/stores/auth';
 	import { store as user } from '$lib/stores/user';
+	import { refresh } from '$lib/controller/auth_controller';
 
 	let login_client_id="20ljuqkee1ci7n4b1nuomitf6o"
 	let login_flow="token"
@@ -9,6 +9,7 @@
 	let login_base_uri = "https://decentraflytestsignin.auth.us-east-1.amazoncognito.com"
 	let login_uri=`${login_base_uri}/login?client_id=${login_client_id}&redirect_uri=${encodeURI(login_redirect_uri)}&response_type=${login_flow}`
 
+	refresh()
 </script>
 
 
@@ -17,11 +18,11 @@
 
 <nav>
     <a href="/">Home</a>
-	{#if ($user == undefined)}
+	{#if ($user.login_state != 'logged_in')}
 	    <a href="{login_uri}">Login</a>
 	{:else}
+		<a href="/devices">Devices</a>
 		<a href="/account">Account</a>
-		<a href="#" on:click={() => {token.update((v) => undefined)}}>Logout</a>
 	{/if}
 </nav>
 
