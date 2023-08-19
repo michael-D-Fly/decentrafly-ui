@@ -23,14 +23,14 @@ export async function get_api_user_self(token?: string): Promise<object> {
     return await decentrafly("/api/user/self", {}, headers)
 }
 
-export async function get_api_devices_sendingfromcallerip(): Promise<object> {
-    return await decentrafly("/api/devices/sending-from-caller-ip")
-}
-
 export async function get_api_devices(): Promise<object> {
     return await decentrafly("/api/devices")
 }
 
 export async function put_api_devices_name_claim(device_name: string): Promise<object> {
     return await decentrafly(`/api/devices/${device_name}/claim`, {'method': 'PUT'})
+}
+
+export async function put_api_devices_name_release(device_name: string): Promise<object> {
+    return await decentrafly(`/api/devices/${device_name}/release`, {'method': 'PUT'})
 }

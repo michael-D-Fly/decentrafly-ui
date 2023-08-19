@@ -1,20 +1,39 @@
 <script>
     import Claimbutton from './components/claimbutton.svelte';
+    import { store as devices } from '$lib/stores/devices'
+    import { load } from '$lib/controller/device_controller'
 
-    export let data;
+    
 
-    console.log(data)
+    load()
+    devices.subscribe(d => console.log(d))
 </script>
 
 
 <h2>Devices</h2>
+
+<div>Your devices</div>
 <ul>
-    {#each data.devices as device}
+    {#each $devices.filter(d => d.claimed) as device}
         <li>
-            <div>{device.name}</div>
-            <div><b>messages</b>: {device.messages_sent}</div>
-            <div><b>nick</b>: {device.user}</div>
-            <div><Claimbutton device_name={device.name} device_owner={device.owner} /></div>
+            <span>{device.name}</span>
+            {#if device.user}
+            <span><b>nick</b>: {device.user}</span>
+            {/if}
+            <span><Claimbutton claimed={device.claimed} device_name={device.name} /></span>
+        </li>
+    {/each}
+</ul>
+
+<div>Online at your IP</div>
+<ul>
+    {#each $devices.filter(d => !d.claimed) as device}
+        <li>
+            <span>{device.name}</span>
+            {#if device.user}
+            <span><b>nick</b>: {device.user}</span>
+            {/if}
+            <span><Claimbutton claimed={device.claimed} device_name={device.name} /></span>
         </li>
     {/each}
 </ul>

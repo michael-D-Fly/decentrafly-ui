@@ -1,11 +1,13 @@
-<script>
-    import { put_api_devices_name_claim } from '$lib/diplomat/decentrafly';
+<script lang="ts">
+    import { claim, release } from "$lib/controller/device_controller";
 
     export let device_name;
-    export let device_owner;
+    export let claimed;
 </script>
 
 
-{#if (device_owner == null)}
-<button on:click={() => put_api_devices_name_claim(device_name)}>Claim!</button>
+{#if (!claimed)}
+<button on:click={() => claim(device_name)}>Claim!</button>
+{:else}
+<button on:click={() => release(device_name)}>Release!</button>
 {/if}
