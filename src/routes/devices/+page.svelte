@@ -1,15 +1,18 @@
 <script>
-    import { Badge, Card, Group, Notification, Text, Stack } from '@svelteuidev/core';
+    import { Badge, Card, Group, Loader, Text, Stack } from '@svelteuidev/core';
     import Claimbutton from './components/claimbutton.svelte';
     import { store as devices } from '$lib/stores/devices'
     import { load } from '$lib/controller/device_controller'
 
-    load()
-    devices.subscribe(d => console.log(d))
+    let loaded = load()
 </script>
 
 <h2>Your devices</h2>
 
+
+{#await loaded}
+<Loader variant='dots'/>
+{:then _}
 <Stack override={{ maxWidth: 700 }} >
     {#each $devices as device}
         <Card shadow='sm' padding='lg'>
@@ -28,3 +31,4 @@
         </Card>
     {/each}
 </Stack>
+{/await}

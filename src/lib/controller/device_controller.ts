@@ -8,7 +8,7 @@ import {
 import { device_wires_to_internal, device_wire_to_internal } from "$lib/adapters/device_adapter";
 
 export function load() {
-    get_api_devices()
+    return get_api_devices()
     .then(response => {
         devices.set(device_wires_to_internal(response.devices))
     })
