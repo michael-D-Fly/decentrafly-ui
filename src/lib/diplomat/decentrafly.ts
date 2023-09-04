@@ -9,7 +9,7 @@ export async function decentrafly(uri: string, rqmap?: RequestInit, headers?: [s
         ...{headers: headers}
     };
 
-    return fetch("https://decentrafly.org" + uri, rq)
+    return fetch("https://api.decentrafly.org" + uri, rq)
         .then(response => { if (response.status >= 300) {
             handle_authentication_failure(rq)
             return undefined
