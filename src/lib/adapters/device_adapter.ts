@@ -6,6 +6,7 @@ export function device_wire_to_internal(wire): Device {
     return {
         name: wire.name,
         claimed: wire.claimed,
+        type: wire.type,
         ...wire.user && {user: wire.user},
         ...wire.messages_sent && {messages_sent: wire.messages_sent},
     }

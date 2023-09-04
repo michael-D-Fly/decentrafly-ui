@@ -18,13 +18,17 @@
         <Card shadow='sm' padding='lg'>
             <Stack>
                 <Group>
-                    <Text weight="bold">MQTT Device</Text>
+                    {#if device.type == "secure_adsb"}
+                        <Text weight="bold">Secure ADSB Device</Text>
+                    {/if}
+                    {#if device.type == "mqtt"}
+                        <Text weight="bold">MQTT Device</Text>
+                    {/if}                    
                     {#if device.claimed}
                         <Badge>Claimed</Badge>
                     {/if}
                     <Badge>{device.name}</Badge>
                 </Group>
-                <Text size="small">Received messages: {device.messages_sent == undefined ? "n/a" : device.messages_sent}</Text>
                 
                 <Claimbutton device_name={device.name} claimed={device.claimed} />
             </Stack>

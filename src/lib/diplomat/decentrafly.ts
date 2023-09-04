@@ -10,12 +10,16 @@ export async function decentrafly(uri: string, rqmap?: RequestInit, headers?: [s
     };
 
     return fetch("https://api.decentrafly.org" + uri, rq)
-        .then(response => { if (response.status >= 300) {
-            handle_authentication_failure(rq)
-            return undefined
-        } else {
-            return response.json()
-        }})
+        .then(response => {
+            if (response.status == 401) {
+                handle_authentication_failure(rq)
+                return undefined
+            } else if (response.status > 399) {
+                console.log(response)
+                return undefined
+            } else {
+                return response.json()
+            }})
 }
 
 export async function get_api_user_self(token?: string): Promise<object> {
