@@ -2,9 +2,9 @@ import type { Device } from '$lib/model/device'
 import { check_required } from '$lib/logic/util'
 
 export function device_wire_to_internal(wire): Device {
-    check_required(wire, ["claimed", "name"])
+    check_required(wire, ["claimed", "id"])
     return {
-        name: wire.name,
+        name: wire.id,
         claimed: wire.claimed,
         type: wire.type,
         ...wire.user && {user: wire.user},
